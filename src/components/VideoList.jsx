@@ -14,10 +14,6 @@ var VideoList = (props) => (
     <div><VideoListEntry video={props.videos[3]} /></div>
     <div><VideoListEntry video={props.videos[4]} /></div> */}
 
-    {/* {this.props.list.map((listItem, index) => (
-          <GroceryListItem key={index} item={listItem} />
-        ))} */}
-
     {props.videos.map((video) => (
       <VideoListEntry video={video} />
     ))}
