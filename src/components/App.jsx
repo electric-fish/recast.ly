@@ -10,19 +10,32 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      // videos: {exampleVideoData},
-      // currentVideo: {exampleVideoData[0]}
       videos: exampleVideoData,
       currentVideo: exampleVideoData[0]
+      // videos: [],
+      // currentVideo: {}
     };
 
     this.setNewVideo = this.setNewVideo.bind(this);
     this.setSearchedVideos = this.setSearchedVideos.bind(this);
     this.startSearch = this.startSearch.bind(this);
+    this.searchWhileTyping = this.searchWhileTyping.bind(this);
+  }
+
+  componentDidMount() {
+    this.startSearch('search');
+    // this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+  }
+
+  componentWillUnmount() {
+    // clearInterval(this.interval);
+  }
+
+  searchWhileTyping(searchTerm) {
+    console.log('search while typing:' + searchTerm);
   }
 
   setNewVideo(video) {
-    // console.log('video event happening');
     this.setState({
       currentVideo: video
     });
@@ -30,7 +43,8 @@ class App extends React.Component {
 
   setSearchedVideos(videos) {
     this.setState({
-      videos: videos
+      videos: videos,
+      currentVideo: videos[0]
     });
   }
 
@@ -48,20 +62,14 @@ class App extends React.Component {
     <div>
       <nav className="navbar">
         <div className="col-md-6 offset-md-3">
-          {/* <div><h5><em>???search</em> view goes here</h5></div> */}
-          <div><Search searchHandler={this.startSearch} /></div>
+          <div><Search searchHandler={this.startSearch} liveSearchHandler={this.searchWhileTyping} /></div>
         </div>
       </nav>
       <div className="row">
         <div className="col-md-7">
           <div><VideoPlayer video={this.state.currentVideo} /></div>
-          {/* <div><VideoPlayer video={exampleVideoData[0]} /></div> */}
         </div>
         <div className="col-md-5">
-          {/* <div><h5><em>videoList</em> view goes here</h5></div> */}
-          {/* <div><VideoList videos={exampleVideoData} /></div> */}
-          {/* <div><VideoList onClick={this.setNewVideo} videos={this.props.videos} /></div> */}
-          {/* <div><VideoList onClick={this.setNewVideo} videos={this.state.videos} /></div> */}
           <div><VideoList videos={this.state.videos} clickHandler={this.setNewVideo} /></div>
         </div>
       </div>
