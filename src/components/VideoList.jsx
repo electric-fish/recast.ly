@@ -15,7 +15,8 @@ var VideoList = (props) => (
 
     {props.videos.map((video) => {
       return (
-        <VideoListEntry onClick={props.onClick} video={video} />
+        // <VideoListEntry video={video} />
+        <VideoListEntry listClickHandler={props.clickHandler} video={video} />
       );
     })}
 

@@ -30,7 +30,7 @@ class App extends React.Component {
     this.state = {
       // videos: {exampleVideoData},
       // currentVideo: {exampleVideoData[0]}
-      // videos: exampleVideoData,
+      videos: exampleVideoData,
       currentVideo: exampleVideoData[0]
     };
 
@@ -38,10 +38,10 @@ class App extends React.Component {
   }
 
   setNewVideo(video) {
-    console.log('video event happening');
-    this.setState(state => ({
-      currentVideo: this.state.currentVideo = video;
-    }));
+    // console.log('video event happening');
+    this.setState({
+      currentVideo: video
+    });
   }
 
   render() {
@@ -55,10 +55,14 @@ class App extends React.Component {
       <div className="row">
         <div className="col-md-7">
           <div><VideoPlayer video={this.state.currentVideo} /></div>
+          {/* <div><VideoPlayer video={exampleVideoData[0]} /></div> */}
         </div>
         <div className="col-md-5">
           {/* <div><h5><em>videoList</em> view goes here</h5></div> */}
-          <div><VideoList onClick={this.setNewVideo} videos={this.props.videos} /></div>
+          {/* <div><VideoList videos={exampleVideoData} /></div> */}
+          {/* <div><VideoList onClick={this.setNewVideo} videos={this.props.videos} /></div> */}
+          {/* <div><VideoList onClick={this.setNewVideo} videos={this.state.videos} /></div> */}
+          <div><VideoList videos={this.state.videos} clickHandler={this.setNewVideo} /></div>
         </div>
       </div>
     </div>
