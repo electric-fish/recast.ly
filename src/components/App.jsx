@@ -1,27 +1,9 @@
-// import Search from './components/Search.js';
+import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
-
-// var App = (props) => (
-//   <div>
-//     <nav className="navbar">
-//       <div className="col-md-6 offset-md-3">
-//         <div><h5><em>search</em> view goes here</h5></div>
-//       </div>
-//     </nav>
-//     <div className="row">
-//       <div className="col-md-7">
-//         {/* <div><h5><em>videoPlayer</em> view goes here</h5></div> */}
-//         <div><VideoPlayer video={exampleVideoData[0]} /></div>
-//       </div>
-//       <div className="col-md-5">
-//         {/* <div><h5><em>videoList</em> view goes here</h5></div> */}
-//         <div><VideoList videos={exampleVideoData} /></div>
-//       </div>
-//     </div>
-//   </div>
-// );
+import YOUTUBE_API_KEY from '../config/youtube.js';
+import searchYouTube from '../lib/searchYouTube.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +17,8 @@ class App extends React.Component {
     };
 
     this.setNewVideo = this.setNewVideo.bind(this);
+    this.setSearchedVideos = this.setSearchedVideos.bind(this);
+    this.startSearch = this.startSearch.bind(this);
   }
 
   setNewVideo(video) {
@@ -44,12 +28,28 @@ class App extends React.Component {
     });
   }
 
+  setSearchedVideos(videos) {
+    this.setState({
+      videos: videos
+    });
+  }
+
+  startSearch(searchTerm){
+    let searchOptions = {
+      query: searchTerm,
+      max: 5,
+      key: YOUTUBE_API_KEY
+    }
+    searchYouTube(searchOptions, this.setSearchedVideos);
+  }
+
   render() {
     return (
     <div>
       <nav className="navbar">
         <div className="col-md-6 offset-md-3">
-          <div><h5><em>search</em> view goes here</h5></div>
+          {/* <div><h5><em>???search</em> view goes here</h5></div> */}
+          <div><Search searchHandler={this.startSearch} /></div>
         </div>
       </nav>
       <div className="row">
