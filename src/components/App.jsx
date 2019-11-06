@@ -78,7 +78,8 @@ class App extends React.Component {
       max: 5,
       key: YOUTUBE_API_KEY
     }
-    searchYouTube(searchOptions, this.setSearchedVideos);
+    // searchYouTube(searchOptions, this.setSearchedVideos);
+    this.props.searchYouTube(searchOptions, this.setSearchedVideos);  //PASS SEARCHYOUTUBE AS PROP
   }
 
   render() {
