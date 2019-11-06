@@ -11,9 +11,12 @@ class App extends React.Component {
 
     this.state = {
       videos: exampleVideoData,
-      currentVideo: exampleVideoData[0]
+      currentVideo: exampleVideoData[0],
       // videos: [],
       // currentVideo: {}
+      // searchText: '',
+      searchBarChange: false,
+      searchBarText: ''
     };
 
     this.setNewVideo = this.setNewVideo.bind(this);
@@ -24,15 +27,35 @@ class App extends React.Component {
 
   componentDidMount() {
     this.startSearch('search');
-    // this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+    this.interval = setInterval(() => this.runOnInterval(), 1000);
   }
 
   componentWillUnmount() {
-    // clearInterval(this.interval);
+    clearInterval(this.interval);
+  }
+
+  runOnInterval() {
+    //console.log('timer tick');
+
+    if( this.state.searchBarChange === true ){
+      //do search on searchBarText
+      //console.log('run search here.');
+
+      this.startSearch(this.state.searchBarText);
+
+      this.setState({
+        searchBarChange: false
+      });
+    }
   }
 
   searchWhileTyping(searchTerm) {
-    console.log('search while typing:' + searchTerm);
+    //console.log('search while typing:' + searchTerm);
+
+    this.setState({
+      searchBarText: searchTerm,
+      searchBarChange: true
+    });
   }
 
   setNewVideo(video) {
@@ -49,6 +72,7 @@ class App extends React.Component {
   }
 
   startSearch(searchTerm){
+    //console.log('search started.')
     let searchOptions = {
       query: searchTerm,
       max: 5,
